@@ -5,7 +5,7 @@
  */
 
 function printResult(something) {
-    console.log(something);
+    something? console.log(something): console.log(this);
 }
 
 function myCalculator1(num1, num2) {
@@ -39,4 +39,19 @@ function myCalculator3(num1, num2, myCallback) {
 
 myCalculator3(5, 10, printResult);
 
+/**************** Example code 2: Another callback as arrow function example  */ 
+setImmediate(() => {
+    // run something
+    console.log('callback fired!')
+});
+
+/*************** Example code 3: pass callback function as argument */
+setTimeout(printResult, 3000);
+
+/*************** Example code 4: pass argument callback as Anonymous function */
+setTimeout(function() {  
+    console.log("This message is shown after 3 seconds");
+}, 800);
+
+console.log('This is sync code');
 
