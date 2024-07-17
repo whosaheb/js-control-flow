@@ -20,7 +20,7 @@
  */
 
 /************************  INPUT DATA  ************************/
-const heights1 = [0,1,0,2,1,0,1,3,2,1,2,1];
+const heights1 = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
 
 const heights2 = [4, 2, 0, 3, 2, 5];
 
@@ -36,7 +36,7 @@ function countTotalWater(array) {
         // For each hight from array we find leftMax
         let leftMax = array[0];
         for (let j = 1; j <= index; j++) {
-            leftMax = Math.max( leftMax, array[j]);
+            leftMax = Math.max(leftMax, array[j]);
         }
 
         // For each hight from array we find rightMax
@@ -53,7 +53,7 @@ function countTotalWater(array) {
     return countWater;
 }
 
-console.log('output: ',countTotalWater(heights2));
+console.log('output: ', countTotalWater(heights1));
 
 /************* Above code demonstrate solution based on time_complexity = O(N2) and space_complexity = O(1) */
 
@@ -73,7 +73,7 @@ function rightMaxArr(arr) {
     const returnArr = []; //= [arr[(arr.length-1)]];
     returnArr[arr.length - 1] = arr[arr.length - 1];
     // console.log(returnArr); // Print returnArr
-    for (let i = (arr.length-2); i >= 0; i--) {
+    for (let i = (arr.length - 2); i >= 0; i--) {
         returnArr[i] = Math.max(arr[i], returnArr[i + 1]);
     }
     return returnArr;
@@ -91,7 +91,53 @@ function totalWater(arr) {
     return countWater;
 }
 
-console.log(totalWater(heights2))
+// console.log(totalWater(heights2))
 
 /************ Above code demonstrate solution based on time_complexity = O(0) and space_complexity = O(n) */
 
+
+/*********************** Below code is graphical output of the above trappedWater DSA problem *******************/
+function printTrappedWaterQuestion(arr) {
+    maxX = arr.length;
+    maxY = arr.reduce((acc, item) => acc = Math.max(acc, item), 0);
+    for (let y = maxY; y > 0; y--) {
+        var yAxisString = '';
+        for (let x = 0; x < maxX; x++) {
+            if (arr[x] >= y) {
+                yAxisString += '✅';
+            } else {
+                yAxisString += '  ';
+            }
+        }
+        console.log(yAxisString);
+    }
+}
+
+function printTrappedWaterQuestionWithAnswer(arr) {
+    maxX = arr.length;
+    maxY = arr.reduce((acc, item) => acc = Math.max(acc, item), 0);
+    const leftMax = leftMaxArr(arr);
+    const rightMax = rightMaxArr(arr);
+
+    for (let y = maxY; y > 0; y--) {
+        var yAxisString = '';
+        for (let x = 0; x < maxX; x++) {
+            if (arr[x] >= y) {
+                yAxisString += '✅';
+            } else {
+                if (Math.min(leftMax[x], rightMax[x]) >= y){
+                    yAxisString += '☰ ';
+                } else {
+                    yAxisString += '  ';
+                }
+            }
+        }
+        console.log(yAxisString);
+    }
+}
+
+printTrappedWaterQuestionWithAnswer(heights1)
+
+// printTrappedWaterQuestion(heights2)
+
+/*********************** Above code is graphical output of the above trappedWater DSA problem *******************/
